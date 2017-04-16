@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shopping.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,17 +11,23 @@ namespace Shopping.Controllers
     {
         public ActionResult Index()
         {
+            var date = new List<ProductCategory>
+            {
+                new ProductCategory(){Id = 1 , Name = "文具"},
+                new ProductCategory(){Id = 2 , Name = "禮品"},
+                new ProductCategory(){Id = 3 , Name = "書籍"}
+            };
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult ProductList()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult ProductDetail()
         {
             ViewBag.Message = "Your contact page.";
 
