@@ -20,24 +20,24 @@ namespace Shopping.Controllers
             return View(data);
         }
 
-        public ActionResult ProductList()
+        public ActionResult ProductList(int id)//ProductList(int id)
         {
-            var productCategory = new ProductCategory(){Id = 5 , Name = "類別"};
+            var productCategory = new ProductCategory() { Id = id, Name = "類別" };//Id = 5 -> Id = id
             var data = new List<Product>()
             {
                 new Product(){Id = 1,ProductCategory = productCategory,Name = "Blue Pen",Description = "N/A",Color = ConsoleColor.Blue,price = 100,publishOn = DateTime.Now},
                 new Product(){Id = 1,ProductCategory = productCategory,Name = "Red Pen",Description = "N/A",Color = ConsoleColor.Red,price = 200,publishOn = DateTime.Now}       
             };
-            ViewBag.Message = "Your application description page.";
 
             return View(data);
         }
 
-        public ActionResult ProductDetail()
+        public ActionResult ProductDetail(int id)//ProductDetail(int id)
         {
-            ViewBag.Message = "Your contact page.";
+            var productCategory = new ProductCategory() { Id = 1, Name = "文具" };
+            var data = new Product() { Id = id, ProductCategory = productCategory, Name = "Product" + 5, Description = "N/A", Color = ConsoleColor.Blue, price = 300, publishOn = DateTime.Now };  
 
-            return View();
+            return View(data);
         }
     }
 }

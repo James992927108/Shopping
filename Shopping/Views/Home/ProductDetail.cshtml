@@ -1,0 +1,60 @@
+﻿@model Shopping.Models.Product
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+@{
+    ViewBag.Title = "ProductDetail";
+    AjaxOptions ajaxOption = new AjaxOptions()
+    {
+        OnSuccess = "AddToCartSuccess",
+        OnFailure = "AddToCartFailure",
+    };
+}
+
+@section scripts
+    {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function AddToCartSuccess() {
+            alert('add to cart success');
+        }
+        function AddToCartFailure() {
+            alert('add to cart fail (Http states:)' + xhr.states + ')')//learn
+        }
+    </script>
+}
+<h2>ProductDetail</h2>
+<h3>@Model.ProductCategory.Name</h3>
+<fieldset>
+    <legend>@Html.DisplayNameFor(m => m)</legend> 
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.publishOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.publishOn)
+        </dd>
+
+    </dl>
+</fieldset>
+<p> 
+    @Ajax.ActionLink("add to cart","AddToCart","Cart",ajaxOption)
+</p>

@@ -16,7 +16,7 @@ namespace Shopping.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(Member member)
+        public ActionResult Register([Bind(Exclude = "RegisterOn,AuthCode")]Member member)
         {
             return View();
         }
