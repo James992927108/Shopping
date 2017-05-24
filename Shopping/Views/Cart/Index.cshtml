@@ -1,0 +1,66 @@
+﻿@model List<Shopping.Models.Cart>
+
+@{
+    AjaxOptions ajaxOption = new AjaxOptions()
+    {
+        OnSuccess = "AddToCartSuccess",
+        OnFailure = "AddToCartFailure",
+    };
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function RemoveCartSuccess() {
+            alert('移除購物車項目成功');
+        }
+        function AddToCartFailure() {
+            alert('移除購物車項目失敗(Http states:)' + xhr.states + ')')//learn
+        }
+    </script>
+}
+
+<h2>購物車列表</h2>
+@using (Html.BeginForm("UpdateAmount", "Cart"))
+{
+    <table>
+        <tr>
+            <th>產品名稱</th>
+            <th>單價</th>
+            <th>數量</th>
+            <th>小計</th>
+            <th></th>
+        </tr>
+        @{int subTotal = 0;}
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            subTotal += Model[i].Product.price * Model[i].Amount;
+            var ddlAmountList = new SelectList(Enumerable.Range(1, 10), Model[i].Amount);
+            @Html.HiddenFor(ModelItem => Model[i].Product.Id)
+            <tr>
+                <td>@Html.DisplayFor(modelItem => Model[i].Product.Name)</td>
+                <td>NT$ @(Model[i].Product.price)</td>
+                <td>@Html.DropDownListFor(modelItem => Model[i].Amount, ddlAmountList)</td>
+                <td>NT$ @(Model[i].Product.price * Model[i].Amount)</td>
+                <td>
+                    @Ajax.ActionLink("刪除", "Remove", new { ProductId = Model[i].Product.Id }, ajaxOption)
+                </td>
+            </tr>
+        }
+
+
+        <tr>
+            <th></th>
+            <th></th>
+            <th>總價</th>
+            <th id="subTotal">NT$ @subTotal</th>
+            <th></th>
+        </tr>
+    </table>
+    <p>
+        <input type="submit" value="更新數量" />
+        <input type="button" value="完成訂單" onclick="location.herf = '@Url.Action("Complete","Order")';" />
+    </p>
+}

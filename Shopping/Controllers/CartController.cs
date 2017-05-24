@@ -9,12 +9,22 @@ using System.Web.Security;
 
 namespace Shopping.Controllers
 {
-    public class CarController : Controller
+    public class CartController : Controller
     {
          // GET: Car
         public ActionResult Index()
         {
-            return View();
+            var productest = new Product() 
+            { 
+                Id = 1,
+                Name = "test"
+            };
+
+            var data = new List<Cart>
+            {
+                new Cart(){Product = productest , Amount = 10},
+            };
+            return View(data);
         }
         [HttpPost]
         public ActionResult AddToCart(int ProductId,int amount = 1)

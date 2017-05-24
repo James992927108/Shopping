@@ -11,18 +11,27 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
+                @Html.ActionLink("首頁", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Index", "Index", "Home")</li>
-                    <li>@Html.ActionLink("ProductList", "ProductList", "Home")</li>
-                    <li>@Html.ActionLink("ProductDetail", "ProductDetail", "Home")</li>
+                    <li>@Html.ActionLink("購物車", "Index", "Cart")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("登出", "Logout", "Member")</li>
+
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("登入", "Login", "Member")</li>
+                        <li>@Html.ActionLink("註冊", "Register", "Member")</li>
+                    }  
                 </ul>
             </div>
         </div>
